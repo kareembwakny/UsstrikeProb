@@ -29,6 +29,17 @@ jobs:
       - name: Run scraper and write data.json
         run: |
           node scrape.js > data.json
+          
+      - name: Upload debug artifacts (if any)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug
+          path: |
+            debug.png
+            debug.html
+            data.json
+          if-no-files-found: ignore
 
       - name: Commit updated data.json
         run: |
